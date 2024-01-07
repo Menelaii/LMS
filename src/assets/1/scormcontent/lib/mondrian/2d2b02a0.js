@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_articulate_mondrian_bundles=self.webpackChunk_articulate_mondrian_bundles||[]).push([[587],{5587:(e,n,a)=>{a.d(n,{I:()=>u,q:()=>s});const s="4.2.0",u="4"}}]);
+//# sourceMappingURL=2d2b02a0.js.map

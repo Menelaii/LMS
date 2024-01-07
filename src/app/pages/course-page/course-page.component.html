@@ -1,0 +1,6 @@
+<iframe [cachedSrc]="url" width="100%" height="600" #courseFrame></iframe>
+
+<div style="height:200px; width:100%;">
+  <pre>{{log | json}}</pre>
+  <button style="width: 30%" (click)="updateLog()">Обновить лог</button>
+</div>
