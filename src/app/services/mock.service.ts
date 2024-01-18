@@ -14,16 +14,16 @@ export class MockService {
 
   getUserFresh(): StudentDTO {
     return {
-      studentId: 1,
-      studentName: "Васька",
+      id: 1,
+      name: "Васька",
       progress: undefined
     }
   }
 
   getUserWithProgress(): StudentDTO {
     return {
-      studentId: 1,
-      studentName: "Васька",
+      id: 1,
+      name: "Васька",
       progress: this.getProgress()
     }
   }

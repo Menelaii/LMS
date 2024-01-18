@@ -1,5 +1,7 @@
 export interface StudentDTO {
-  studentId: number,
-  studentName: string,
+  id: number,
+  name: string,
+  firstname: string,
+  middlename: string,
   progress: any,
 }
