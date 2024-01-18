@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CachedSrcDirective} from "../../directives/cachedSrc.directive";
-import {JsonPipe} from "@angular/common";
+import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
 import {StudentDTO} from "../../interfaces/student.dto";
 import {ActivatedRoute} from "@angular/router";
@@ -20,7 +20,8 @@ declare global {
   standalone: true,
   imports: [
     CachedSrcDirective,
-    JsonPipe
+    JsonPipe,
+    NgIf
   ],
   templateUrl: './course-page.component.html',
   styleUrl: './course-page.component.scss'
