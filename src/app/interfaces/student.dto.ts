@@ -3,5 +3,4 @@ export interface StudentDTO {
   name: string,
   firstname: string,
   middlename: string,
-  progress: any,
 }

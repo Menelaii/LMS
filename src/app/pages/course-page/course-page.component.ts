@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CachedSrcDirective} from "../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
@@ -6,6 +6,9 @@ import {StudentDTO} from "../../interfaces/student.dto";
 import {ActivatedRoute} from "@angular/router";
 import {LessonPageDTO} from "../../interfaces/lesson-page.dto";
 import {LessonService} from "../../services/lesson.service";
+import {HttpClientModule} from "@angular/common/http";
+import {UrlChangerService} from "../../services/url-changer.service";
+import {LessonProgressService} from "../../services/lesson-progress.service";
 
 declare var Scorm12API: any;
 
@@ -21,7 +24,13 @@ declare global {
   imports: [
     CachedSrcDirective,
     JsonPipe,
-    NgIf
+    NgIf,
+    HttpClientModule
+  ],
+  providers: [
+    LessonService,
+    UrlChangerService,
+    LessonProgressService
   ],
   templateUrl: './course-page.component.html',
   styleUrl: './course-page.component.scss'
@@ -30,46 +39,59 @@ export class CoursePageComponent implements OnInit {
   apiConfig = {};
   log = '';
   isLoaded = false;
+  driverUrl = "/scormdriver/indexAPI.html";
 
   id: number;
-  progress!: boolean | number;
   url!: string;
   student!: StudentDTO;
 
-  constructor(private lessonService: LessonService, private route: ActivatedRoute) {
+  constructor(
+    private lessonService: LessonService,
+    private route: ActivatedRoute,
+    private urlChanger: UrlChangerService,
+    private lessonProgressService: LessonProgressService
+  ) {
     this.id = this.route.snapshot.params['id'];
+    this.registerScormApi(this.apiConfig);
   }
 
   ngOnInit(): void {
-    this.lessonService.getLessonPage(this.id).subscribe((lesson: LessonPageDTO) => {
-      this.url = lesson.lesson.filesRootUrl;
-      this.student = lesson.student;
-      this.progress = lesson.student.progress;
+    this.lessonService.getLessonPage(this.id).subscribe((lessonPage: LessonPageDTO) => {
+      this.url = this.urlChanger.transformUrlForProxy(lessonPage.lesson.filesRootUrl + this.driverUrl);
+      console.log(this.url)
+      this.student = lessonPage.student;
+      this.isLoaded = true;
+
+      if (!lessonPage.progress) {
+        window.API.cmi.core.student_id = this.student.id;
+        window.API.cmi.core.student_name = 'test-name'; //todo this.student.firstname;
+      } else {
+        this.loadProgress(lessonPage.progress);
+      }
     });
+  }
 
-    this.registerScormApi(this.apiConfig);
-
-    if (!this.student.progress) {
-      window.API.cmi.core.student_id = this.student.id;
-      window.API.cmi.core.student_name = this.student.name;
-    } else {
-      this.loadProgress(this.student.progress);
-    }
+  registerScormApi(settings: any): void {
+    window.API = new Scorm12API(settings);
 
     window.API.on("LMSInitialize", function() {
       console.log('on api init');
     });
   }
 
-  registerScormApi(settings: any): void {
-    window.API = new Scorm12API(settings);
-  }
-
   loadProgress(jsonData: any) {
-    window.API.loadFromJSON(jsonData);
+    console.log('on load json');
+    console.log(JSON.parse(jsonData));
+    window.API.loadFromJSON(JSON.parse(jsonData));
   }
 
   updateLog() {
     this.log = window.API.cmi.toJSON();
+  }
+
+  saveProgress() {
+    this.lessonProgressService.saveProgress(this.id, window.API.cmi.toJSON()).subscribe(() =>{
+      console.log('progress saved');
+    });
   }
 }

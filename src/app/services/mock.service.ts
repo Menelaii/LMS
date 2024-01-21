@@ -12,21 +12,21 @@ export class MockService {
     return '/assets/1/scormdriver/indexAPI.html';
   }
 
-  getUserFresh(): StudentDTO {
-    return {
-      id: 1,
-      name: "Васька",
-      progress: undefined
-    }
-  }
-
-  getUserWithProgress(): StudentDTO {
-    return {
-      id: 1,
-      name: "Васька",
-      progress: this.getProgress()
-    }
-  }
+  // getUserFresh(): StudentDTO {
+  //   return {
+  //     id: 1,
+  //     name: "Васька",
+  //     progress: undefined
+  //   }
+  // }
+  //
+  // getUserWithProgress(): StudentDTO {
+  //   return {
+  //     id: 1,
+  //     name: "Васька",
+  //     progress: this.getProgress()
+  //   }
+  // }
 
   getProgress() {
     return {

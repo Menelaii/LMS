@@ -1,0 +1,20 @@
+<form class="login-page" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 class="login-page__header">Войдите в аккаунт</h1>
+
+  <ng-container *ngIf="!isSubmitted; else spinner">
+    <input class="login-page__input" type="text" formControlName="email" placeholder="Логин*">
+    <input class="login-page__input" type="password" formControlName="password" placeholder="Пароль*">
+
+    <p class="login-page__error" *ngIf="error">неправильные логин или пароль</p>
+    <input type="submit" class="login-page__button" [disabled]="form.invalid || isSubmitted">
+  </ng-container>
+
+</form>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>
