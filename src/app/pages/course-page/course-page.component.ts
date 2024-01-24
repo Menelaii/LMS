@@ -9,6 +9,7 @@ import {LessonService} from "../../services/lesson.service";
 import {HttpClientModule} from "@angular/common/http";
 import {UrlChangerService} from "../../services/url-changer.service";
 import {LessonProgressService} from "../../services/lesson-progress.service";
+import {SaveProgressRequestDTO} from "../../interfaces/save-progress-request.dto";
 
 declare var Scorm12API: any;
 
@@ -44,6 +45,7 @@ export class CoursePageComponent implements OnInit {
   id: number;
   url!: string;
   student!: StudentDTO;
+  sessionId!: number;
 
   constructor(
     private lessonService: LessonService,
@@ -64,10 +66,18 @@ export class CoursePageComponent implements OnInit {
 
       if (!lessonPage.progress) {
         window.API.cmi.core.student_id = this.student.id;
-        window.API.cmi.core.student_name = 'test-name'; //todo this.student.firstname;
+        //todo
+        window.API.cmi.core.student_name = this.student.name;
+        this.sessionId = 0;
       } else {
         this.loadProgress(lessonPage.progress);
+        this.sessionId = lessonPage.sessionId ?? -1;
+        this.sessionId++;
       }
+
+      console.log('всё инициализовано')
+      console.log('session id = ' + this.sessionId)
+      console.log('total time = ' + window.API.cmi.core.total_time)
     });
   }
 
@@ -81,7 +91,6 @@ export class CoursePageComponent implements OnInit {
 
   loadProgress(jsonData: any) {
     console.log('on load json');
-    // window.API.loadFromJSON(JSON.parse(jsonData));
     window.API.loadFromJSON(jsonData);
   }
 
@@ -90,7 +99,12 @@ export class CoursePageComponent implements OnInit {
   }
 
   saveProgress() {
-    this.lessonProgressService.saveProgress(this.id, window.API.cmi.toJSON()).subscribe(() =>{
+    const requestDTO: SaveProgressRequestDTO = {
+      progress: window.API.cmi.toJSON(),
+      sessionId: this.sessionId
+    }
+
+    this.lessonProgressService.saveProgress(this.id, requestDTO).subscribe(() =>{
       console.log('progress saved');
     });
   }
