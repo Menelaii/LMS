@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CachedSrcDirective} from "../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
@@ -81,8 +81,8 @@ export class CoursePageComponent implements OnInit {
 
   loadProgress(jsonData: any) {
     console.log('on load json');
-    console.log(JSON.parse(jsonData));
-    window.API.loadFromJSON(JSON.parse(jsonData));
+    // window.API.loadFromJSON(JSON.parse(jsonData));
+    window.API.loadFromJSON(jsonData);
   }
 
   updateLog() {

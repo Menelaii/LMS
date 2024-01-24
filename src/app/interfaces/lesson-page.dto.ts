@@ -4,5 +4,5 @@ import {StudentDTO} from "./student.dto";
 export interface LessonPageDTO {
   student: StudentDTO,
   lesson: LessonDTO,
-  progress: string
+  progress: any
 }
