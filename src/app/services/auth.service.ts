@@ -5,6 +5,8 @@ import {TokenStorageService} from "./token-storage.service";
 import {Observable} from "rxjs";
 import {AuthRequestDTO} from "../interfaces/auth-request.dto";
 import {AuthResponseDTO} from "../interfaces/auth-response.dto";
+import {jwtDecode} from "jwt-decode";
+import {JwtPayload} from "../interfaces/jwt-payload";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +28,25 @@ export class AuthService {
 
   public isAuthenticated():boolean {
     return this.storage.getToken() != null && !this.storage.isTokenExpired();
+  }
+
+  public getRole(): string {
+    return jwtDecode<JwtPayload>(this.storage.getToken() ?? '').role;
+  }
+
+  public isAuthenticatedAs(role: string): boolean {
+    return this.isAuthenticated() && this.getRole() === role;
+  }
+
+  public isAuthenticatedAdmin(): boolean {
+    return this.isAuthenticated() && this.getRole() == environment.ROLE_ADMIN;
+  }
+
+  isAuthenticatedStudent(): boolean {
+    return this.isAuthenticated() && this.getRole() == environment.ROLE_STUDENT;
+  }
+
+  isAuthenticatedTeacher(): boolean {
+    return this.isAuthenticated() && this.getRole() == environment.ROLE_TEACHER;
   }
 }

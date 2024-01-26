@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {CachedSrcDirective} from "../../directives/cachedSrc.directive";
+import {CachedSrcDirective} from "../../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
-import {StudentDTO} from "../../interfaces/student.dto";
+import {StudentDTO} from "../../../interfaces/student.dto";
 import {ActivatedRoute} from "@angular/router";
-import {LessonPageDTO} from "../../interfaces/lesson-page.dto";
-import {LessonService} from "../../services/lesson.service";
+import {LessonPageDTO} from "../../../interfaces/lesson-page.dto";
+import {LessonService} from "../../../services/lesson.service";
 import {HttpClientModule} from "@angular/common/http";
-import {UrlChangerService} from "../../services/url-changer.service";
-import {LessonProgressService} from "../../services/lesson-progress.service";
-import {SaveProgressRequestDTO} from "../../interfaces/save-progress-request.dto";
+import {UrlChangerService} from "../../../services/url-changer.service";
+import {LessonProgressService} from "../../../services/lesson-progress.service";
+import {SaveProgressRequestDTO} from "../../../interfaces/save-progress-request.dto";
 
 declare var Scorm12API: any;
 
@@ -20,7 +20,7 @@ declare global {
 }
 
 @Component({
-  selector: 'app-course-page',
+  selector: 'app-lesson-page',
   standalone: true,
   imports: [
     CachedSrcDirective,
@@ -33,10 +33,10 @@ declare global {
     UrlChangerService,
     LessonProgressService
   ],
-  templateUrl: './course-page.component.html',
-  styleUrl: './course-page.component.scss'
+  templateUrl: './lesson-page.component.html',
+  styleUrl: './lesson-page.component.scss'
 })
-export class CoursePageComponent implements OnInit {
+export class LessonPageComponent implements OnInit {
   apiConfig = {};
   log = '';
   isLoaded = false;
@@ -83,7 +83,6 @@ export class CoursePageComponent implements OnInit {
 
   registerScormApi(settings: any): void {
     window.API = new Scorm12API(settings);
-
     window.API.on("LMSInitialize", function() {
       console.log('on api init');
     });
