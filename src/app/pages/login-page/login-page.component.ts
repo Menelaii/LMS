@@ -8,6 +8,7 @@ import {Observer} from "rxjs";
 import {AuthResponseDTO} from "../../interfaces/auth-response.dto";
 import {NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {environment} from "../../../environments/environment.dev";
 
 @Component({
   selector: 'app-login-page',
@@ -29,7 +30,7 @@ export class LoginPageComponent {
   isSubmitted = false;
   error = false;
 
-  constructor(private service: AuthService,
+  constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private router: Router)
   {
@@ -66,7 +67,17 @@ export class LoginPageComponent {
       next: (value: AuthResponseDTO | null) => {
         if (value) {
           this.tokenStorage.setToken(value);
-          this.router.navigate(['/course/1']);
+          switch (this.authService.getRole()) {
+            case environment.ROLE_TEACHER:
+              this.router.navigate(['/teacher']);
+              break;
+            case environment.ROLE_STUDENT:
+              this.router.navigate(['/']);
+              break;
+            default:
+              //todo
+              break;
+          }
 
           this.isSubmitted = false;
           this.error = false;
@@ -74,6 +85,6 @@ export class LoginPageComponent {
       }
     }
 
-    this.service.signIn(formData).subscribe(observer);
+    this.authService.signIn(formData).subscribe(observer);
   }
 }

@@ -37,16 +37,4 @@ export class AuthService {
   public isAuthenticatedAs(role: string): boolean {
     return this.isAuthenticated() && this.getRole() === role;
   }
-
-  public isAuthenticatedAdmin(): boolean {
-    return this.isAuthenticated() && this.getRole() == environment.ROLE_ADMIN;
-  }
-
-  isAuthenticatedStudent(): boolean {
-    return this.isAuthenticated() && this.getRole() == environment.ROLE_STUDENT;
-  }
-
-  isAuthenticatedTeacher(): boolean {
-    return this.isAuthenticated() && this.getRole() == environment.ROLE_TEACHER;
-  }
 }

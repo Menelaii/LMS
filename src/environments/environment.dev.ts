@@ -10,6 +10,7 @@ export const environment = {
   ROOT_URL: 'http://localhost:4200/api/v1',
   SIGN_IN_URL: 'http://localhost:4200/api/v1/auth/sign-in',
   STUDENT_REGISTRATION_URL: 'http://localhost:4200/api/v1/auth/sign-up/student',
+  STUDENT_REGISTRATION_OPTIONS_URL: 'http://localhost:4200/api/v1/auth/sign-up/student/options',
   TEACHER_REGISTRATION_URL: 'http://localhost:4200/api/v1/auth/sign-up/teacher',
   LESSONS_URL: 'http://localhost:4200/api/v1/lessons',
   LESSON_PROGRESS_URL: 'http://localhost:4200/api/v1/progress',
@@ -20,5 +21,6 @@ export const environment = {
   ROLE_ADMIN: 'ROLE_ADMIN',
   ROLE_TEACHER: 'ROLE_TEACHER',
   ROLE_STUDENT: 'ROLE_STUDENT',
+
 }
 

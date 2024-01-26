@@ -6,10 +6,10 @@ export const roleAuthGuard = (role: string): Promise<boolean> | boolean => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isAuthenticatedStudent()) {
+  if (authService.isAuthenticatedAs(role)) {
     return true;
   } else {
-    router.navigate(['/auth']);
+    router.navigate(['/login']);
     return false;
   }
 };
