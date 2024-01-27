@@ -7,6 +7,7 @@ import {StudentRegistrationOptionsDTO} from "../../../interfaces/student-registr
 import {StudentRegistrationRequestDTO} from "../../../interfaces/student-registration-request.dto";
 import {RegistrationService} from "../../../services/registration.service";
 import {Router} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-student-registration-page',
@@ -14,6 +15,7 @@ import {Router} from "@angular/router";
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
+    NgIf,
   ],
   providers: [
     RegistrationOptionsService

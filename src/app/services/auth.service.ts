@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment.dev";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TokenStorageService} from "./token-storage.service";
 import {Observable} from "rxjs";
 import {AuthRequestDTO} from "../interfaces/auth-request.dto";
@@ -9,7 +9,7 @@ import {jwtDecode} from "jwt-decode";
 import {JwtPayload} from "../interfaces/jwt-payload";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 

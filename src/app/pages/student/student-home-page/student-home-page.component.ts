@@ -3,7 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-student-home-page',
   standalone: true,
-  imports: [],
+  imports: [
+  ],
+  providers: [
+  ],
   templateUrl: './student-home-page.component.html',
   styleUrl: './student-home-page.component.scss'
 })

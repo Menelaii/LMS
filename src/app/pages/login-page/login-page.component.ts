@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {TokenStorageService} from "../../services/token-storage.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthRequestDTO} from "../../interfaces/auth-request.dto";
 import {Observer} from "rxjs";
 import {AuthResponseDTO} from "../../interfaces/auth-response.dto";
@@ -16,7 +16,8 @@ import {environment} from "../../../environments/environment.dev";
   imports: [
     ReactiveFormsModule,
     NgIf,
-    HttpClientModule
+    HttpClientModule,
+    RouterLink
   ],
   providers: [
     AuthService,
