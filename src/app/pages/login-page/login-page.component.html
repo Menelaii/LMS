@@ -5,7 +5,7 @@
     <input class="login-page__input" type="text" formControlName="email" placeholder="Логин*">
     <input class="login-page__input" type="password" formControlName="password" placeholder="Пароль*">
 
-    <a routerLink="/register">Регистрация</a>
+    <a routerLink="/registration">Регистрация</a>
     <p class="login-page__error" *ngIf="error">неправильные логин или пароль</p>
     <input type="submit" class="login-page__button" [disabled]="form.invalid || isSubmitted">
   </ng-container>

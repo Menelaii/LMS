@@ -1,5 +1,5 @@
 <form class="registration-page" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <h1 class="registration-page__header">Войдите в аккаунт</h1>
+  <h1 class="registration-page__header">Регистрация</h1>
 
   <ng-container *ngIf="!isLoading ; else spinner">
     <input class="registration-page__input" type="text" formControlName="email" placeholder="Логин*">
