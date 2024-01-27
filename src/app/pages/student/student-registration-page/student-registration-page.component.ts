@@ -6,8 +6,14 @@ import {RegistrationOptionsService} from "../../../services/registration-options
 import {StudentRegistrationOptionsDTO} from "../../../interfaces/student-registration-options.dto";
 import {StudentRegistrationRequestDTO} from "../../../interfaces/student-registration-request.dto";
 import {RegistrationService} from "../../../services/registration.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {NzContentComponent, NzLayoutComponent} from "ng-zorro-antd/layout";
+import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
+import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 
 @Component({
   selector: 'app-student-registration-page',
@@ -16,6 +22,19 @@ import {NgIf} from "@angular/common";
     HttpClientModule,
     ReactiveFormsModule,
     NgIf,
+    NzButtonComponent,
+    NzCheckboxComponent,
+    NzColDirective,
+    NzContentComponent,
+    NzFormControlComponent,
+    NzFormDirective,
+    NzFormItemComponent,
+    NzInputDirective,
+    NzInputGroupComponent,
+    NzLayoutComponent,
+    NzRowDirective,
+    RouterLink,
+    NzFormLabelComponent,
   ],
   providers: [
     RegistrationOptionsService

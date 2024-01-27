@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
 
   {path: 'login', component: LoginPageComponent},
-  {path: 'sing-up', component: StudentRegistrationPageComponent},
+  {path: 'registration', component: StudentRegistrationPageComponent},
 
   { path: 'student', loadChildren: () => import('./pages/student/student.routes').then(m => m.studentRoutes) },
   { path: 'teacher', loadChildren: () => import('./pages/teacher/teacher.routes').then(m => m.teacherRoutes) }

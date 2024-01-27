@@ -9,6 +9,13 @@ import {AuthResponseDTO} from "../../interfaces/auth-response.dto";
 import {NgIf} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {environment} from "../../../environments/environment.dev";
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzContentComponent, NzFooterComponent, NzHeaderComponent, NzLayoutComponent} from "ng-zorro-antd/layout";
+import {NzBreadCrumbComponent, NzBreadCrumbItemComponent} from "ng-zorro-antd/breadcrumb";
+import {NzMenuDirective, NzMenuItemComponent} from "ng-zorro-antd/menu";
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +24,20 @@ import {environment} from "../../../environments/environment.dev";
     ReactiveFormsModule,
     NgIf,
     HttpClientModule,
-    RouterLink
+    RouterLink,
+    NzFormModule,
+    NzInputGroupComponent,
+    NzInputDirective,
+    NzCheckboxComponent,
+    NzButtonComponent,
+    NzLayoutComponent,
+    NzContentComponent,
+    NzBreadCrumbItemComponent,
+    NzFooterComponent,
+    NzBreadCrumbComponent,
+    NzHeaderComponent,
+    NzMenuDirective,
+    NzMenuItemComponent
   ],
   providers: [
     AuthService,
