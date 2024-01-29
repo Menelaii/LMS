@@ -1,19 +1,26 @@
-<div class="my-courses-page">
-  <ng-container *ngIf="courses$ | async as courses; else spinner">
-    <div class="my-courses-page__list">
-      <ng-container *ngFor="let course of courses">
-        <div class="my-courses-page__course-item">
-          <p>Курс: {{course.title}}</p>
-        </div>
-      </ng-container>
-    </div>
-  </ng-container>
+<h3 [ngStyle]="{ margin: '16px 0' }">Доступные курсы</h3>
+<ng-container  *ngIf="(courses$ | async) as courses; else spinner">
 
-  <ng-template #spinner>
-    <div class="spinner-container">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Загрузка...</span>
-      </div>
+  <ul nz-list [nzDataSource]="courses" nzBordered nzSize="large">
+    <nz-list-header>Название</nz-list-header>
+    <li nz-list-item *ngFor="let course of courses" nzNoFlex>
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <a [routerLink]="['/student', 'courses', course.id]">открыть</a>
+        </nz-list-item-action>
+      </ul>
+      {{ course.title }}
+    </li>
+    <!--    <nz-list-footer>Footer</nz-list-footer>-->
+  </ul>
+
+</ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
     </div>
-  </ng-template>
-</div>
+  </div>
+</ng-template>
+

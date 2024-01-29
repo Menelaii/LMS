@@ -1,8 +1,8 @@
 import {LessonDTO} from "./lesson.dto";
-import {StudentDTO} from "./student.dto";
+import {AccountDto} from "./account.dto";
 
 export interface LessonPageDTO {
-  student: StudentDTO,
+  student: AccountDto,
   lesson: LessonDTO,
   progress: any,
   sessionId: number | undefined

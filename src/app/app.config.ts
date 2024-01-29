@@ -16,7 +16,11 @@ registerLocaleData(ru);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(HttpClientModule), provideNzIcons(), provideNzI18n(ru_RU), importProvidersFrom(FormsModule), importProvidersFrom(HttpClientModule),
+    importProvidersFrom(HttpClientModule),
+    provideNzIcons(),
+    provideNzI18n(ru_RU),
+    importProvidersFrom(FormsModule),
+    importProvidersFrom(HttpClientModule),
     provideAnimations()
 ],
 };

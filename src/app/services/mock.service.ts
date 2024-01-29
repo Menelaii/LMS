@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {StudentDTO} from "../interfaces/student.dto";
+import {AccountDto} from "../interfaces/account.dto";
 
 @Injectable({
   providedIn: 'root'

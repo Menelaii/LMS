@@ -1,0 +1,50 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <ng-container *ngIf="!isSubmitted && (options$ | async) as options; else spinner">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="title">Название урока</nz-form-label>
+      <nz-form-control nzErrorTip="Введите название!">
+        <input nz-input formControlName="title" id="title" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="course" nzRequired>Курс</nz-form-label>
+      <nz-form-control nzErrorTip="Выберите курс!">
+        <nz-select
+          id="course"
+          formControlName="courseId"
+          nzPlaceHolder="Выберите курс из списка">
+          <ng-container *ngFor="let course of options.courses">
+            <nz-option [nzValue]="course.id" [nzLabel]="course.title"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="course" nzRequired>Архив</nz-form-label>
+      <nz-form-control nzErrorTip="Выберите zip архив!">
+        <input type="file" accept="application/zip"
+               (change)="fileInputHandler.onFileChangedNative($event)">
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="this.isSubmitted || this.isInvalid()"
+        >Создать Урок</button>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+</form>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

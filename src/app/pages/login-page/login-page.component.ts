@@ -93,10 +93,9 @@ export class LoginPageComponent {
               this.router.navigate(['/teacher']);
               break;
             case environment.ROLE_STUDENT:
-              this.router.navigate(['/']);
+              this.router.navigate(['/student']);
               break;
             default:
-              //todo
               break;
           }
 

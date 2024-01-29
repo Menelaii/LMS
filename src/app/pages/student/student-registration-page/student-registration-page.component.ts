@@ -7,13 +7,14 @@ import {StudentRegistrationOptionsDTO} from "../../../interfaces/student-registr
 import {StudentRegistrationRequestDTO} from "../../../interfaces/student-registration-request.dto";
 import {RegistrationService} from "../../../services/registration.service";
 import {Router, RouterLink} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzContentComponent, NzLayoutComponent} from "ng-zorro-antd/layout";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 
 @Component({
   selector: 'app-student-registration-page',
@@ -35,6 +36,9 @@ import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
     NzRowDirective,
     RouterLink,
     NzFormLabelComponent,
+    NzOptionComponent,
+    NzSelectComponent,
+    NgForOf,
   ],
   providers: [
     RegistrationOptionsService
@@ -64,7 +68,6 @@ export class StudentRegistrationPageComponent implements OnInit {
       ]),
       confirmPassword: new FormControl('', [
         Validators.required,
-        confirmPassword
       ]),
       lastname: new FormControl('', [
         Validators.required
@@ -75,10 +78,10 @@ export class StudentRegistrationPageComponent implements OnInit {
       patronymic: new FormControl('', [
         Validators.required
       ]),
-      groupId: new FormControl(0, [
-        Validators.required
+      groupId: new FormControl(undefined, [
+        Validators.required,
       ]),
-    });
+    }, {validators: confirmPassword});
   }
 
   ngOnInit(): void {
@@ -90,7 +93,7 @@ export class StudentRegistrationPageComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.isSubmitted || this.form.invalid) {
+    if (this.isSubmitted || this.form.invalid) {
       return;
     }
 

@@ -3,7 +3,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {CoursesService} from "../../../services/courses.service";
 import {Observable} from "rxjs";
 import {CourseShortDTO} from "../../../interfaces/course-short.dto";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
+import {
+  NzListComponent,
+  NzListHeaderComponent,
+  NzListItemActionComponent,
+  NzListItemActionsComponent, NzListItemComponent
+} from "ng-zorro-antd/list";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-my-courses-page',
@@ -13,6 +20,13 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
     NgIf,
     AsyncPipe,
     NgForOf,
+    NzListComponent,
+    NzListHeaderComponent,
+    NzListItemActionComponent,
+    NzListItemActionsComponent,
+    NzListItemComponent,
+    RouterLink,
+    NgStyle,
   ],
   providers: [
     CoursesService,
