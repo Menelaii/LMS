@@ -1,7 +1,5 @@
-<h3 [ngStyle]="{ margin: '16px 0' }">Курс</h3>
 <ng-container  *ngIf="(course$ | async) as coursePage; else spinner">
-
-  <nz-descriptions nzTitle="Информация о курсе" nzLayout="vertical">
+  <nz-descriptions nzTitle="Информация о курсе" nzLayout="horizontal">
     <nz-descriptions-item nzTitle="Название">{{coursePage.course.title}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="Создатель">{{getFullName(coursePage.owner)}}</nz-descriptions-item>
   </nz-descriptions>

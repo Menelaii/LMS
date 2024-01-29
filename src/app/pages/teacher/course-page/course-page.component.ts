@@ -43,10 +43,14 @@ export class CoursePageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.fetch();
+  }
+
+  fetch() {
     this.id = this.activatedRoute.snapshot.params['id'];
 
     if (!this.id) {
-      throw new Error('Method not implemented.');
+      throw new Error('id не найден');
     }
 
     this.course$ = this.courseService.getById(this.id);

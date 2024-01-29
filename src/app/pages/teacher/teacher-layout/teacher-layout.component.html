@@ -31,7 +31,19 @@
         </ul>
       </li>
 
-      <li nz-submenu nzOpen nzTitle="Зачисление на курс" nzIcon="usergroup-add">
+      <li nz-submenu nzOpen nzTitle="Потоки/Группы" nzIcon="usergroup-add">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="streams/new">Добавить поток</a>
+          </li>
+
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="groups/new">Добавить группу</a>
+          </li>
+        </ul>
+      </li>
+
+      <li nz-submenu nzOpen nzTitle="Управление доступом" nzIcon="key">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['enrollments/new']" [queryParams]="{accessLevel: 2}">Зачислить на курс поток</a>

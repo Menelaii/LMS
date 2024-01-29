@@ -37,7 +37,7 @@ export class CoursesService {
   }
 
   getById(id: number): Observable<CoursePageDTO> {
-    return this.http.get<CoursePageDTO>(environment.COURSES_URL, {
+    return this.http.get<CoursePageDTO>(`${environment.COURSES_URL}/${id}`, {
       headers: this.tokenStorage.getAuthHeader()
     })
   }

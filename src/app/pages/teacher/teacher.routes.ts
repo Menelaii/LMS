@@ -7,7 +7,10 @@ import {EnrollmentFormComponent} from "./enrollment-form/enrollment-form.compone
 import {CreateCourseFormComponent} from "./create-course-form/create-course-form.component";
 import {OwnedCoursesComponent} from "./owned-courses/owned-courses.component";
 import {CreateLessonFormComponent} from "./create-lesson-form/create-lesson-form.component";
-import {LessonPageComponent} from "../student/lesson-page/lesson-page.component";
+import {CoursePageComponent} from "./course-page/course-page.component";
+import {CreateStreamFormComponent} from "./create-stream-form/create-stream-form.component";
+import {CreateGroupFormComponent} from "./create-group-form/create-group-form.component";
+import {TeacherLessonPageComponent} from "./teacher-lesson-page/teacher-lesson-page.component";
 
 export const teacherRoutes: Routes = [
   {
@@ -21,7 +24,10 @@ export const teacherRoutes: Routes = [
       {path: 'courses/new', component: CreateCourseFormComponent},
       {path: 'courses/my', component: OwnedCoursesComponent},
       {path: 'lessons/new', component: CreateLessonFormComponent},
-      {path: 'lessons/:id', component: LessonPageComponent},
+      {path: 'courses/:id', component: CoursePageComponent},
+      {path: 'streams/new', component: CreateStreamFormComponent},
+      {path: 'groups/new', component: CreateGroupFormComponent},
+      {path: 'lessons/:id', component: TeacherLessonPageComponent},
       //todo
     ]
   },

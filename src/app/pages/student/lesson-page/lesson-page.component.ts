@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CachedSrcDirective} from "../../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
-import {AccountDto} from "../../../interfaces/account.dto";
+import {AccountDTO} from "../../../interfaces/account.dto";
 import {ActivatedRoute} from "@angular/router";
 import {LessonPageDTO} from "../../../interfaces/lesson-page.dto";
 import {LessonService} from "../../../services/lesson.service";
@@ -44,7 +44,7 @@ export class LessonPageComponent implements OnInit {
 
   id: number;
   url!: string;
-  student!: AccountDto;
+  student!: AccountDTO;
   sessionId!: number;
 
   constructor(

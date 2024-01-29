@@ -1,0 +1,42 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <ng-container *ngIf="!isSubmitted && (options$ | async) as options; else spinner">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="name">Название группы</nz-form-label>
+      <nz-form-control nzErrorTip="Введите название!">
+        <input nz-input formControlName="name" id="name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="stream" nzRequired>Поток</nz-form-label>
+      <nz-form-control nzErrorTip="Выберите поток!">
+        <nz-select
+          id="stream"
+          formControlName="streamId"
+          nzPlaceHolder="Выберите поток из списка">
+          <ng-container *ngFor="let stream of options.streams">
+            <nz-option [nzValue]="stream.id" [nzLabel]="stream.name"></nz-option>
+          </ng-container>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid || isSubmitted"
+        >Создать группу</button>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+</form>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>
