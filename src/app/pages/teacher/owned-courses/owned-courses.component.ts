@@ -4,7 +4,7 @@ import {BehaviorSubject, combineLatest, map, Observable} from "rxjs";
 import {CoursesService} from "../../../services/courses.service";
 import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {NzListModule} from "ng-zorro-antd/list";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {Pagination} from "../../../interfaces/pagination";
 import {PaginationService} from "../../../services/pagination.service";

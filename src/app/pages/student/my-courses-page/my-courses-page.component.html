@@ -1,5 +1,5 @@
 <h1>Доступные курсы</h1>
-<ng-container  *ngIf="(courses$ | async) as courses; else spinner">
+<ng-container  *ngIf="(paginatedCourses$ | async) as courses; else spinner">
 
   <ul nz-list [nzDataSource]="courses" nzBordered nzSize="large">
     <nz-list-header>Название</nz-list-header>
@@ -11,9 +11,14 @@
       </ul>
       {{ course.title }}
     </li>
-    <!--    <nz-list-footer>Footer</nz-list-footer>-->
   </ul>
 
+  <nz-pagination
+    [(nzPageIndex)]="pagination.page"
+    [nzPageSize]="pagination.pageSize"
+    [nzTotal]="pagination.totalItems"
+    (nzPageIndexChange)="onPageChange($event)"
+  ></nz-pagination>
 </ng-container>
 
 <ng-template #spinner>

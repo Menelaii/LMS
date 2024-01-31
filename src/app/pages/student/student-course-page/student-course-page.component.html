@@ -1,4 +1,4 @@
-<ng-container  *ngIf="(course$ | async) as coursePage; else spinner">
+<ng-container  *ngIf="(coursePageWithPaginatedLessons$ | async) as coursePage; else spinner">
   <nz-descriptions nzTitle="Информация о курсе" nzLayout="horizontal">
     <nz-descriptions-item nzTitle="Название">{{coursePage.course.title}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="Создатель">{{getFullName(coursePage.owner)}}</nz-descriptions-item>
@@ -15,6 +15,13 @@
       {{ lesson.title }}
     </li>
   </ul>
+
+  <nz-pagination
+    [(nzPageIndex)]="pagination.page"
+    [nzPageSize]="pagination.pageSize"
+    [nzTotal]="pagination.totalItems"
+    (nzPageIndexChange)="onPageChange($event)"
+  ></nz-pagination>
 </ng-container>
 
 <ng-template #spinner>

@@ -28,6 +28,11 @@
               <a class="login-form-forgot">Восстановить пароль</a>
             </div>
           </div>
+
+          <nz-form-control *ngIf="error">
+            <nz-form-text class="error">Неправильные логин или пароль</nz-form-text>
+          </nz-form-control>
+
           <button nz-button
                   class="login-form-button login-form-margin"
                   [nzType]="'primary'"
