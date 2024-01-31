@@ -1,6 +1,6 @@
 <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <h1>Добавить поток</h1>
   <ng-container *ngIf="!isSubmitted; else spinner">
-
     <nz-form-item>
       <nz-form-label nzRequired nzFor="name">Название потока</nz-form-label>
       <nz-form-control nzErrorTip="Введите название!">
@@ -14,7 +14,7 @@
           nz-button
           nzType="primary"
           [disabled]="form.invalid || isSubmitted"
-        >Создать поток</button>
+        >Добавить</button>
       </nz-form-control>
     </nz-form-item>
   </ng-container>

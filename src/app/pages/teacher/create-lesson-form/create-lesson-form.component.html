@@ -1,4 +1,5 @@
 <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <h1>Добавить урок</h1>
   <ng-container *ngIf="!isSubmitted && (options$ | async) as options; else spinner">
     <nz-form-item>
       <nz-form-label nzRequired nzFor="title">Название урока</nz-form-label>
@@ -35,7 +36,7 @@
           nz-button
           nzType="primary"
           [disabled]="this.isSubmitted || this.isInvalid()"
-        >Создать Урок</button>
+        >Добавить</button>
       </nz-form-control>
     </nz-form-item>
   </ng-container>

@@ -6,6 +6,7 @@ import {LessonPageDTO} from "../interfaces/lesson-page.dto";
 import {Observable} from "rxjs";
 import {LessonUploadOptionsDTO} from "../interfaces/lesson-upload-options.dto";
 import {LessonUploadDTO} from "../interfaces/lesson-upload.dto";
+import {TeacherLessonPageDTO} from "../interfaces/teacher-lesson-page.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,11 @@ export class LessonService {
       headers: this.tokenStorage.getAuthHeader(),
       observe: 'response'
     });
+  }
+
+  getTeacherLessonPageById(id: number): Observable<TeacherLessonPageDTO> {
+    return this.http.get<TeacherLessonPageDTO>(`${environment.LESSONS_URL}/${id}/statistics`, {
+      headers: this.tokenStorage.getAuthHeader()
+    })
   }
 }

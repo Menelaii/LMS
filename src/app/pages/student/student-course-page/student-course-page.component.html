@@ -9,7 +9,7 @@
     <li nz-list-item *ngFor="let lesson of coursePage.course.lessons" nzNoFlex>
       <ul nz-list-item-actions>
         <nz-list-item-action>
-          <a [routerLink]="['/teacher', 'lessons', lesson.id]">открыть</a>
+          <a [routerLink]="['/student', 'lessons', lesson.id]">открыть</a>
         </nz-list-item-action>
       </ul>
       {{ lesson.title }}

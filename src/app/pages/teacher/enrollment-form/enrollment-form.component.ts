@@ -99,18 +99,16 @@ export class EnrollmentFormComponent implements OnInit {
     this.isSubmitted = true;
     const data: EnrollmentDTO = {...this.form.value}
 
-    switch (this.accessLevel) {
-      case 1:
-        this.enrollmentService.enrollGroup(data).subscribe(r => {
-          this.isSubmitted = false;
-        })
-        break;
-
-      case 2:
-        this.enrollmentService.enrollStream(data).subscribe(r => {
-          this.isSubmitted = false;
-        })
-        break;
+    if (this.accessLevel == 2) {
+      this.enrollmentService.enrollStream(data).subscribe(r => {
+        this.isSubmitted = false;
+      })
+    } else if (this.accessLevel == 1){
+      this.enrollmentService.enrollGroup(data).subscribe(r => {
+        this.isSubmitted = false;
+      })
+    } else {
+      throw new Error('Неверный уровень доступа');
     }
   }
 }

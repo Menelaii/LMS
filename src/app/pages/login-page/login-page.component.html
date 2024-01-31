@@ -2,6 +2,7 @@
   <nz-content>
     <div class="inner-content">
       <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()">
+        <h1>Войдите в аккаунт</h1>
         <ng-container *ngIf="!isSubmitted; else spinner">
           <nz-form-item>
             <nz-form-control nzErrorTip="Введите email!">
@@ -13,7 +14,7 @@
           <nz-form-item>
             <nz-form-control nzErrorTip="Введите пароль!">
               <nz-input-group nzPrefixIcon="lock">
-                <input type="password" nz-input formControlName="password" placeholder="Password" />
+                <input type="password" nz-input formControlName="password" placeholder="пароль" />
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>

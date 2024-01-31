@@ -33,7 +33,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
     NzOptionComponent,
     NzSelectComponent,
     NzUploadComponent,
-    NzIconDirective
+    NzIconDirective,
   ],
   templateUrl: './create-lesson-form.component.html',
   styleUrl: './create-lesson-form.component.scss'

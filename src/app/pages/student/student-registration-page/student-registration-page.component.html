@@ -2,7 +2,8 @@
   <nz-content>
     <div class="inner-content">
       <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
-        <ng-container *ngIf="!isSubmitted; else spinner">
+        <h1>Регистрация</h1>
+        <ng-container *ngIf="!isSubmitted || !isLoading; else spinner">
           <nz-form-item>
             <nz-form-label nzRequired nzFor="email">E-mail</nz-form-label>
             <nz-form-control nzErrorTip="Неверный email!">

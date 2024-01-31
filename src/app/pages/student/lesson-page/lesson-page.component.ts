@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {CachedSrcDirective} from "../../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
@@ -10,6 +10,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {UrlChangerService} from "../../../services/url-changer.service";
 import {LessonProgressService} from "../../../services/lesson-progress.service";
 import {SaveProgressRequestDTO} from "../../../interfaces/save-progress-request.dto";
+import {NzDescriptionsModule} from "ng-zorro-antd/descriptions";
+import {LayoutService} from "../../../services/layout.service";
 
 declare var Scorm12API: any;
 
@@ -26,7 +28,8 @@ declare global {
     CachedSrcDirective,
     JsonPipe,
     NgIf,
-    HttpClientModule
+    HttpClientModule,
+    NzDescriptionsModule
   ],
   providers: [
     LessonService,
@@ -36,61 +39,85 @@ declare global {
   templateUrl: './lesson-page.component.html',
   styleUrl: './lesson-page.component.scss'
 })
-export class LessonPageComponent implements OnInit {
+export class LessonPageComponent implements OnInit, OnDestroy {
   apiConfig = {};
   log = '';
   isLoaded = false;
   driverUrl = "/scormdriver/indexAPI.html";
 
-  id: number;
+  id!: number;
   url!: string;
   student!: AccountDTO;
   sessionId!: number;
+  lessonPage!: LessonPageDTO;
 
   constructor(
     private lessonService: LessonService,
     private route: ActivatedRoute,
     private urlChanger: UrlChangerService,
-    private lessonProgressService: LessonProgressService
-  ) {
-    this.id = this.route.snapshot.params['id'];
-    this.registerScormApi(this.apiConfig);
-  }
+    private lessonProgressService: LessonProgressService,
+    private layoutService: LayoutService
+  ) { }
 
   ngOnInit(): void {
-    this.lessonService.getLessonPage(this.id).subscribe((lessonPage: LessonPageDTO) => {
-      this.url = this.urlChanger.transformUrlForProxy(lessonPage.lesson.filesRootUrl + this.driverUrl);
-      console.log(this.url)
-      this.student = lessonPage.student;
-      this.isLoaded = true;
+    this.registerScormApi(this.apiConfig);
+    this.subscribeOnApiEvents();
 
-      if (!lessonPage.progress) {
-        window.API.cmi.core.student_id = this.student.id;
-        //todo
-        window.API.cmi.core.student_name = this.student.name;
-        this.sessionId = 0;
-      } else {
-        this.loadProgress(lessonPage.progress);
-        this.sessionId = lessonPage.sessionId ?? -1;
-        this.sessionId++;
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      if (!this.id) {
+        throw new Error('id урока не найден');
       }
-
-      console.log('всё инициализовано')
-      console.log('session id = ' + this.sessionId)
-      console.log('total time = ' + window.API.cmi.core.total_time)
+      this.lessonService.getLessonPage(this.id).subscribe(
+        (lessonPage: LessonPageDTO) => {
+        this.url = this.urlChanger.transformUrlForProxy(lessonPage.lesson.filesRootUrl + this.driverUrl);
+        this.lessonPage = lessonPage;
+        this.student = lessonPage.student;
+        this.initialize(lessonPage.sessionId, lessonPage.progress);
+        this.isLoaded = true;
+      });
     });
+
+    this.layoutService.setShowHeader(false);
+    this.layoutService.setDisableContainerPadding(true);
+    this.layoutService.setIsSiderCollapsed(true);
+  }
+
+  ngOnDestroy(): void {
+    this.layoutService.setShowHeader(true);
+    this.layoutService.setDisableContainerPadding(false);
+    this.layoutService.setIsSiderCollapsed(false);
   }
 
   registerScormApi(settings: any): void {
     window.API = new Scorm12API(settings);
+  }
+
+  subscribeOnApiEvents() {
     window.API.on("LMSInitialize", function() {
       console.log('on api init');
     });
+
+    window.API.on("LMSCommit", () => {
+      console.log('on api commit');
+      this.saveProgress();
+    });
+
+    window.API.on("LMSFinish", function() {
+      console.log('on api finish');
+    });
   }
 
-  loadProgress(jsonData: any) {
-    console.log('on load json');
-    window.API.loadFromJSON(jsonData);
+  initialize(sessionId: number | undefined, progress: any) {
+    if (!progress) {
+      window.API.cmi.core.student_id = this.student.id;
+      window.API.cmi.core.student_name = this.student.lastname + this.student.name + this.student.patronymic;
+      this.sessionId = 0;
+    } else {
+      window.API.loadFromJSON(progress);
+      this.sessionId = sessionId ?? -1;
+      this.sessionId++;
+    }
   }
 
   updateLog() {

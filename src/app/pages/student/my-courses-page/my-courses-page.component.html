@@ -1,4 +1,4 @@
-<h3 [ngStyle]="{ margin: '16px 0' }">Доступные курсы</h3>
+<h1>Доступные курсы</h1>
 <ng-container  *ngIf="(courses$ | async) as courses; else spinner">
 
   <ul nz-list [nzDataSource]="courses" nzBordered nzSize="large">

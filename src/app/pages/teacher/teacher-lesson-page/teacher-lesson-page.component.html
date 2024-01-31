@@ -1,1 +1,51 @@
-<p>teacher-lesson-page works!</p>
+<ng-container  *ngIf="(lessonPage$ | async) as lessonPage; else spinner">
+
+  <nz-descriptions nzTitle="Информация о уроке" nzLayout="horizontal">
+    <nz-descriptions-item nzTitle="Название">{{lessonPage.lesson.title}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <h3>Прогресс учеников</h3>
+
+  <nz-table #sortTable [nzTemplateMode]="true"
+    nzTableLayout="fixed"
+  >
+    <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumn"
+      >
+        {{ column }}
+      </th>
+
+<!--      todo-->
+<!--      <th-->
+<!--        *ngFor="let column of listOfColumn"-->
+<!--        [nzSortFn]="column.compare"-->
+<!--        [nzSortPriority]="column.priority"-->
+<!--      >-->
+<!--        {{ column.title }}-->
+<!--      </th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of lessonPage.students">
+      <td>{{ getFullName(student) }}</td>
+<!--      <td>{{ student.group.stream.name }}</td>-->
+      <td>{{ student.group.name }}</td>
+      <td>{{ getProgress(student.id, lessonPage.progressMap)?.totalTime }}</td>
+      <td>{{ getProgress(student.id, lessonPage.progressMap)?.completionRate + '%'}}</td>
+      <td>{{ getProgress(student.id, lessonPage.progressMap)?.launchCount }}</td>
+      <td>{{ getProgress(student.id, lessonPage.progressMap)?.passed }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

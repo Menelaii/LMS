@@ -1,4 +1,5 @@
 <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <h1>Добавить группу</h1>
   <ng-container *ngIf="!isSubmitted && (options$ | async) as options; else spinner">
     <nz-form-item>
       <nz-form-label nzRequired nzFor="name">Название группы</nz-form-label>
@@ -27,7 +28,7 @@
           nz-button
           nzType="primary"
           [disabled]="form.invalid || isSubmitted"
-        >Создать группу</button>
+        >Добавить</button>
       </nz-form-control>
     </nz-form-item>
   </ng-container>

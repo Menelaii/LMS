@@ -1,9 +1,22 @@
-<ng-container *ngIf="isLoaded">
-  <iframe [cachedSrc]="url" width="100%" height="600" #courseFrame></iframe>
-
-  <div style="height:200px; width:100%;">
-    <pre>{{log | json}}</pre>
-    <button style="width: 30%" (click)="updateLog()">Обновить лог</button>
-    <button style="width: 30%" (click)="saveProgress()">Сохранить прогресс</button>
-  </div>
+<ng-container *ngIf="isLoaded; else spinner">
+<!--  <h1>Урок {{lessonPage.lesson.title}}</h1>-->
+<!--  <nz-descriptions nzLayout="horizontal">-->
+<!--    <nz-descriptions-item nzTitle="Фамилия">{{lesso.lastname}}</nz-descriptions-item>-->
+<!--    <nz-descriptions-item nzTitle="Имя">{{userDetails.name}}</nz-descriptions-item>-->
+<!--    <nz-descriptions-item nzTitle="Отчество">{{userDetails.patronymic}}</nz-descriptions-item>-->
+<!--  </nz-descriptions>-->
+<!--  <div>-->
+<!--    <pre>{{log | json}}</pre>-->
+<!--    <button style="width: 30%" (click)="updateLog()">Обновить лог</button>-->
+<!--    <button style="width: 30%" (click)="saveProgress()">Сохранить прогресс</button>-->
+<!--  </div>-->
+  <iframe [cachedSrc]="url" style="width: 100%;height: 100%" #courseFrame></iframe>
 </ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

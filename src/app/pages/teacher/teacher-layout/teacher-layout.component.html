@@ -15,14 +15,27 @@
     </div>
 
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu nzOpen nzTitle="Аккаунт" nzIcon="user">
+          <ul>
+            <li nz-menu-item nzMatchRouter nzMatchRouterExact>
+              <a routerLink="/teacher/dashboard">Профиль</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/login" (click)="onLogoutClick()">Выйти</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
       <li nz-submenu nzOpen nzTitle="Курсы" nzIcon="book">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="courses/new">Добавить курс</a>
+            <a routerLink="courses/my">Мои курсы</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="courses/my">Мои курсы</a>
+            <a routerLink="courses/new">Добавить курс</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>

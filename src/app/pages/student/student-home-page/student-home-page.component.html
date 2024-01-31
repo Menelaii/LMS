@@ -1,1 +1,21 @@
-<p>student-home-page works!</p>
+<h1>Профиль</h1>
+<ng-container  *ngIf="(userDetails$ | async) as userDetails; else spinner">
+  <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item nzTitle="ФИО">
+      {{getFullName(userDetails)}}
+    </nz-descriptions-item>
+    <!--    <nz-descriptions-item nzTitle="Имя">{{userDetails.name}}</nz-descriptions-item>-->
+    <!--    <nz-descriptions-item nzTitle="Отчество">{{userDetails.patronymic}}</nz-descriptions-item>-->
+    <nz-descriptions-item nzTitle="Почта">{{userDetails.email}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Группа">{{userDetails.group.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Поток">{{userDetails.group.stream.name}}</nz-descriptions-item>
+  </nz-descriptions>
+</ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

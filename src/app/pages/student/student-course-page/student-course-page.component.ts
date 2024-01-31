@@ -3,32 +3,26 @@ import {Observable} from "rxjs";
 import {CoursePageDTO} from "../../../interfaces/course-page.dto";
 import {CoursesService} from "../../../services/courses.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
-import {AsyncPipe, NgForOf, NgIf, NgStyle} from "@angular/common";
-import {
-  NzListComponent,
-  NzListHeaderComponent,
-  NzListItemActionComponent,
-  NzListItemActionsComponent, NzListItemComponent, NzListModule
-} from "ng-zorro-antd/list";
-import {NzDescriptionsComponent, NzDescriptionsItemComponent, NzDescriptionsModule} from "ng-zorro-antd/descriptions";
 import {AccountDTO} from "../../../interfaces/account.dto";
+import {NzListModule} from "ng-zorro-antd/list";
+import {NzDescriptionsModule} from "ng-zorro-antd/descriptions";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-course-page',
+  selector: 'app-student-course-page',
   standalone: true,
   imports: [
+    NzListModule,
+    RouterLink,
+    NzDescriptionsModule,
     AsyncPipe,
     NgIf,
-    NgStyle,
-    RouterLink,
-    NgForOf,
-    NzDescriptionsModule,
-    NzListModule,
+    NgForOf
   ],
-  templateUrl: './course-page.component.html',
-  styleUrl: './course-page.component.scss'
+  templateUrl: './student-course-page.component.html',
+  styleUrl: './student-course-page.component.scss'
 })
-export class CoursePageComponent implements OnInit {
+export class StudentCoursePageComponent implements OnInit {
   course$!: Observable<CoursePageDTO>;
 
   constructor(

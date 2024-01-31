@@ -5,6 +5,7 @@ import {RoleGuard} from "../../services/guards/role.guard";
 import {environment} from "../../../environments/environment.dev";
 import {LessonPageComponent} from "./lesson-page/lesson-page.component";
 import {MyCoursesPageComponent} from "./my-courses-page/my-courses-page.component";
+import {StudentCoursePageComponent} from "./student-course-page/student-course-page.component";
 
 export const studentRoutes: Routes = [
   {
@@ -15,6 +16,7 @@ export const studentRoutes: Routes = [
       {path: '', redirectTo: '/student/dashboard', pathMatch: 'full'},
       {path: 'dashboard', component: StudentHomePageComponent},
       {path: 'courses', component: MyCoursesPageComponent},
+      {path: 'courses/:id', component: StudentCoursePageComponent},
       {path: 'lessons/:id', component: LessonPageComponent},
     ]
   },
