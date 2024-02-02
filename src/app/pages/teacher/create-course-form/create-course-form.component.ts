@@ -8,6 +8,7 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzNotificationService, NzNotificationServiceModule} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-create-course-form',
@@ -27,7 +28,8 @@ import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
     NzSelectComponent,
     ReactiveFormsModule,
     NzInputDirective,
-    NzInputGroupComponent
+    NzInputGroupComponent,
+    NzNotificationServiceModule,
   ],
   templateUrl: './create-course-form.component.html',
   styleUrl: './create-course-form.component.scss'
@@ -37,7 +39,8 @@ export class CreateCourseFormComponent {
   isSubmitted = false;
 
   constructor(
-    private courseService: CoursesService
+    private courseService: CoursesService,
+    private notification: NzNotificationService
   ) {
     this.form = new FormGroup({
       title: new FormControl(null, [
@@ -56,6 +59,13 @@ export class CreateCourseFormComponent {
 
     this.courseService.upload(data).subscribe(r => {
       this.isSubmitted = false;
+      this.createNotification();
+    });
+  }
+
+  createNotification() {
+    this.notification.success('Курс добавлен', '', {
+      nzDuration: 1500
     });
   }
 }

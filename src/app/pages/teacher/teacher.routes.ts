@@ -28,7 +28,6 @@ export const teacherRoutes: Routes = [
       {path: 'streams/new', component: CreateStreamFormComponent},
       {path: 'groups/new', component: CreateGroupFormComponent},
       {path: 'lessons/:id', component: TeacherLessonPageComponent},
-      //todo
     ]
   },
 ];

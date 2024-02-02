@@ -10,6 +10,16 @@ export const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'registration', component: StudentRegistrationPageComponent},
 
-  { path: 'student', loadChildren: () => import('./pages/student/student.routes').then(m => m.studentRoutes) },
-  { path: 'teacher', loadChildren: () => import('./pages/teacher/teacher.routes').then(m => m.teacherRoutes) }
+  {
+    path: 'student',
+    loadChildren: () => import('./pages/student/student.routes').then(m => m.studentRoutes)
+  },
+  {
+    path: 'teacher',
+    loadChildren: () => import('./pages/teacher/teacher.routes').then(m => m.teacherRoutes)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.adminRoutes)
+  },
 ];

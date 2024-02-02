@@ -13,6 +13,7 @@ import {LessonUploadOptionsDTO} from "../../../interfaces/lesson-upload-options.
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzUploadComponent} from "ng-zorro-antd/upload";
 import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzNotificationService, NzNotificationServiceModule} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-create-lesson-form',
@@ -34,6 +35,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
     NzSelectComponent,
     NzUploadComponent,
     NzIconDirective,
+    NzNotificationServiceModule,
   ],
   templateUrl: './create-lesson-form.component.html',
   styleUrl: './create-lesson-form.component.scss'
@@ -45,7 +47,8 @@ export class CreateLessonFormComponent {
   options$: Observable<LessonUploadOptionsDTO>;
 
   constructor(
-    private lessonsService: LessonService
+    private lessonsService: LessonService,
+    private notification: NzNotificationService
   ) {
     this.fileInputHandler = new FileInputHandler();
     this.options$ = lessonsService.getUploadOptions();
@@ -73,10 +76,17 @@ export class CreateLessonFormComponent {
     // @ts-ignore
     this.lessonsService.uploadLesson(data, this.fileInputHandler.selectedFile).subscribe(r => {
       this.isSubmitted = false;
+      this.createNotification();
     });
   }
 
   isInvalid() {
     return this.form.invalid || !this.fileInputHandler.isPresent();
+  }
+
+  createNotification() {
+    this.notification.success('Урок добавлен', '', {
+      nzDuration: 1500
+    });
   }
 }

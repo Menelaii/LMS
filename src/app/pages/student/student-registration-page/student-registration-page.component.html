@@ -28,11 +28,12 @@
             <nz-form-label nzFor="checkPassword" nzRequired>Подтвердите пароль</nz-form-label>
             <nz-form-control [nzErrorTip]="errorTpl">
               <input nz-input type="password" formControlName="confirmPassword" id="checkPassword" />
+              <ng-container *ngIf="form.errors?.['notSame'] && form.controls['confirmPassword'].dirty">
+                <p class="ant-form-item-explain-error error">Пароли не совпадают</p>
+              </ng-container>
               <ng-template #errorTpl>
-                <ng-container *ngIf="form.controls['confirmPassword'].hasError('required')">Подтвердите пароль!</ng-container>
-<!--                todo не считывает ошибку-->
-                <ng-container *ngIf="form.errors?.['notSame'] && form.controls['confirmPassword'].dirty">
-                  Пароли не совпадают
+                <ng-container *ngIf="form.controls['confirmPassword'].hasError('required')">
+                  Подтвердите пароль!
                 </ng-container>
               </ng-template>
             </nz-form-control>

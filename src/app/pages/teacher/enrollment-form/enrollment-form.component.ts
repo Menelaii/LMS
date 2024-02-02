@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EnrollmentService} from "../../../services/enrollment.service";
 import {CoursesService} from "../../../services/courses.service";
-import {ActivatedRoute, ActivatedRouteSnapshot, Params, RouterModule} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {CourseShortDTO} from "../../../interfaces/course-short.dto";
 import {EnrollmentTargetDTO} from "../../../interfaces/enrollment-target.dto";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -13,6 +13,7 @@ import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabe
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {Subscription} from "rxjs";
+import {NzNotificationService, NzNotificationServiceModule} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-enrollment-form',
@@ -31,6 +32,7 @@ import {Subscription} from "rxjs";
     NzRowDirective,
     NzSelectComponent,
     ReactiveFormsModule,
+    NzNotificationServiceModule,
   ],
   providers: [
     EnrollmentService,
@@ -52,6 +54,7 @@ export class EnrollmentFormComponent implements OnInit {
     private enrollmentService: EnrollmentService,
     private coursesService: CoursesService,
     private activatedRoute: ActivatedRoute,
+    private notification: NzNotificationService
   ) {
     this.accessLevel = this.activatedRoute.snapshot.queryParams['accessLevel'];
     this.subscription = this.activatedRoute.queryParams.subscribe((params: Params) => {
@@ -102,13 +105,21 @@ export class EnrollmentFormComponent implements OnInit {
     if (this.accessLevel == 2) {
       this.enrollmentService.enrollStream(data).subscribe(r => {
         this.isSubmitted = false;
+        this.notifySuccess('Поток зачислен');
       })
     } else if (this.accessLevel == 1){
       this.enrollmentService.enrollGroup(data).subscribe(r => {
         this.isSubmitted = false;
+        this.notifySuccess('Группа зачислена');
       })
     } else {
       throw new Error('Неверный уровень доступа');
     }
+  }
+
+  notifySuccess(msg: string) {
+    this.notification.success(msg, '', {
+      nzDuration: 1500
+    });
   }
 }

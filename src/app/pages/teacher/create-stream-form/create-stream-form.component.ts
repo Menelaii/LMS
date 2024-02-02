@@ -7,6 +7,7 @@ import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabe
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {CreateStreamRequestDTO} from "../../../interfaces/create-stream-request.dto";
 import {StreamService} from "../../../services/stream.service";
+import {NzNotificationService, NzNotificationServiceModule} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-create-stream-form',
@@ -21,7 +22,8 @@ import {StreamService} from "../../../services/stream.service";
     NzFormLabelComponent,
     NzInputDirective,
     NzRowDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzNotificationServiceModule,
   ],
   templateUrl: './create-stream-form.component.html',
   styleUrl: './create-stream-form.component.scss'
@@ -31,7 +33,8 @@ export class CreateStreamFormComponent {
   isSubmitted = false;
 
   constructor(
-    private streamService: StreamService
+    private streamService: StreamService,
+    private notification: NzNotificationService
   ) {
     this.form = new FormGroup({
       name: new FormControl(null, [
@@ -49,6 +52,13 @@ export class CreateStreamFormComponent {
     const data: CreateStreamRequestDTO = {...this.form.value}
     this.streamService.create(data).subscribe(r => {
       this.isSubmitted = false;
+      this.createNotification();
+    });
+  }
+
+  createNotification() {
+    this.notification.success('Поток добавлен', '', {
+      nzDuration: 1500
     });
   }
 }

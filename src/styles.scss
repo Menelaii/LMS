@@ -7,5 +7,10 @@
 }
 
 .error {
-  color: red;
+  color: #ff4d4f;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  list-style: none;
+  font-feature-settings: "tnum";
 }

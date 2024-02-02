@@ -10,6 +10,7 @@ import {Observable} from "rxjs";
 import {GroupUploadOptionsDTO} from "../../../interfaces/group-upload-options.dto";
 import {GroupService} from "../../../services/group.service";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
+import {NzNotificationService, NzNotificationServiceModule} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-create-group-form',
@@ -28,7 +29,8 @@ import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
     AsyncPipe,
     NgForOf,
     NzOptionComponent,
-    NzSelectComponent
+    NzSelectComponent,
+    NzNotificationServiceModule,
   ],
   templateUrl: './create-group-form.component.html',
   styleUrl: './create-group-form.component.scss'
@@ -39,7 +41,8 @@ export class CreateGroupFormComponent {
   options$: Observable<GroupUploadOptionsDTO>;
 
   constructor(
-    private groupService: GroupService
+    private groupService: GroupService,
+    private notification: NzNotificationService
   ) {
     this.options$ = groupService.getUploadOptions();
 
@@ -62,6 +65,13 @@ export class CreateGroupFormComponent {
     const data: CreateGroupRequestDTO = {...this.form.value}
     this.groupService.create(data).subscribe(r => {
       this.isSubmitted = false;
+      this.createNotification();
+    });
+  }
+
+  createNotification() {
+    this.notification.success('Группа добавлена', '', {
+      nzDuration: 1500
     });
   }
 }

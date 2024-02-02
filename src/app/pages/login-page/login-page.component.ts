@@ -7,7 +7,7 @@ import {AuthRequestDTO} from "../../interfaces/auth-request.dto";
 import {Observer} from "rxjs";
 import {AuthResponseDTO} from "../../interfaces/auth-response.dto";
 import {NgIf} from "@angular/common";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {environment} from "../../../environments/environment.dev";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
@@ -58,7 +58,7 @@ export class LoginPageComponent {
     this.form = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(3)
       ]),
       password: new FormControl(null, [
         Validators.required,
@@ -95,8 +95,11 @@ export class LoginPageComponent {
             case environment.ROLE_STUDENT:
               this.router.navigate(['/student']);
               break;
-            default:
+            case environment.ROLE_ADMIN:
+              this.router.navigate(['/admin']);
               break;
+            default:
+              throw new Error('Роль неопределена');
           }
 
           this.isSubmitted = false;

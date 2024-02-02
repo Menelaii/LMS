@@ -1,0 +1,76 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onSubmit()" nzLayout="vertical">
+  <h1>Регистрация учителя</h1>
+  <ng-container *ngIf="!isSubmitted || !isLoading; else spinner">
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="email">E-mail</nz-form-label>
+      <nz-form-control nzErrorTip="Неверный email!">
+        <input nz-input formControlName="email" id="email" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="password" nzRequired>Пароль</nz-form-label>
+      <nz-form-control nzErrorTip="Введите пароль!">
+        <input
+          nz-input
+          type="password"
+          id="password"
+          formControlName="password"/>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="checkPassword" nzRequired>Подтвердите пароль</nz-form-label>
+      <nz-form-control [nzErrorTip]="errorTpl">
+        <input nz-input type="password" formControlName="confirmPassword" id="checkPassword" />
+        <ng-container *ngIf="form.errors?.['notSame'] && form.controls['confirmPassword'].dirty">
+          <p class="ant-form-item-explain-error error">Пароли не совпадают</p>
+        </ng-container>
+        <ng-template #errorTpl>
+          <ng-container *ngIf="form.controls['confirmPassword'].hasError('required')">Подтвердите пароль!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="name">Фамилия</nz-form-label>
+      <nz-form-control nzErrorTip="Введите фамилию!">
+        <input nz-input formControlName="lastname" id="lastname" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="name">Имя</nz-form-label>
+      <nz-form-control nzErrorTip="Введите имя!">
+        <input nz-input formControlName="name" id="name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired nzFor="patronymic">Отчество</nz-form-label>
+      <nz-form-control nzErrorTip="Введите отчество!">
+        <input nz-input formControlName="patronymic" id="patronymic" />
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item class="register-area">
+      <nz-form-control>
+        <button
+          nz-button nzType="primary"
+          [disabled]="form.invalid || isSubmitted"
+        >
+          Зарегистрироваться
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
+</form>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>
