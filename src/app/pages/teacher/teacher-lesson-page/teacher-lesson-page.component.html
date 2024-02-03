@@ -6,38 +6,25 @@
 
   <h3>Прогресс учеников</h3>
 
-
-
   <nz-table #sortTable [nzTemplateMode]="true"
     nzTableLayout="fixed"
   >
     <thead>
     <tr>
-      <th
-        *ngFor="let column of listOfColumn"
-      >
-        {{ column }}
+      <th>
+        Название группы
       </th>
-
-<!--      todo-->
-<!--      <th-->
-<!--        *ngFor="let column of listOfColumn"-->
-<!--        [nzSortFn]="column.compare"-->
-<!--        [nzSortPriority]="column.priority"-->
-<!--      >-->
-<!--        {{ column.title }}-->
-<!--      </th>-->
+      <th>
+        Действие
+      </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let student of lessonPage.students">
-      <td>{{ getFullName(student) }}</td>
-<!--      <td>{{ student.group.stream.name }}</td>-->
-      <td>{{ student.group.name }}</td>
-      <td>{{ getProgress(student.id, lessonPage.progressMap)?.totalTime }}</td>
-      <td>{{ getProgress(student.id, lessonPage.progressMap)?.completionRate + '%'}}</td>
-      <td>{{ getProgress(student.id, lessonPage.progressMap)?.launchCount }}</td>
-      <td>{{ getProgress(student.id, lessonPage.progressMap)?.passed }}</td>
+    <tr *ngFor="let group of lessonPage.groups">
+      <td>{{ group.name }}</td>
+      <td>
+        <a [routerLink]="['/teacher/lessons/', lessonPage.lesson.id, group.id]">Перейти</a>
+      </td>
     </tr>
     </tbody>
   </nz-table>

@@ -1,0 +1,48 @@
+<ng-container  *ngIf="(groupProgressPage$ | async) as groupProgressPage; else spinner">
+
+  <nz-descriptions nzTitle="Информация" nzLayout="horizontal">
+    <nz-descriptions-item nzTitle="Группа">{{groupProgressPage.group.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Урок">{{groupProgressPage.lesson.title}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <h3>Прогресс учеников</h3>
+
+  <nz-table #sortTable [nzTemplateMode]="true"
+            nzTableLayout="fixed"
+  >
+    <thead>
+    <tr>
+      <th
+        *ngFor="let column of listOfColumn"
+      >
+        {{ column }}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let studentProgress of groupProgressPage.progress">
+      <td>{{ getFullName(studentProgress.student) }}</td>
+      <td>{{ studentProgress.progress?.totalTime }}</td>
+      <td>{{ studentProgress.progress?.completionRate}}</td>
+      <td>{{ studentProgress.progress?.launchCount }}</td>
+      <td>{{ studentProgress.progress?.passed }}</td>
+      <td>
+        <a [routerLink]="['/teacher/lessons/', groupProgressPage.lesson.id,
+          groupProgressPage.group.id, studentProgress.student.id]"
+        >
+          Детальный отчёт
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

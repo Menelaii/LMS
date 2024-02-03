@@ -13,7 +13,10 @@ import {TeacherLessonPageDTO} from "../interfaces/teacher-lesson-page.dto";
 })
 export class LessonService {
 
-  constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
+  constructor(
+    private http: HttpClient,
+    private tokenStorage: TokenStorageService
+  ) { }
 
   getLessonPage(id: number): Observable<LessonPageDTO> {
     return this.http.get<LessonPageDTO>(`${environment.LESSONS_URL}/${id}`, {
@@ -47,7 +50,7 @@ export class LessonService {
   }
 
   getTeacherLessonPageById(id: number): Observable<TeacherLessonPageDTO> {
-    return this.http.get<TeacherLessonPageDTO>(`${environment.LESSONS_URL}/${id}/statistics`, {
+    return this.http.get<TeacherLessonPageDTO>(`${environment.LESSONS_URL}/${id}/groups`, {
       headers: this.tokenStorage.getAuthHeader()
     })
   }

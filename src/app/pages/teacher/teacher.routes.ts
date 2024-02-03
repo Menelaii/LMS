@@ -11,6 +11,10 @@ import {CoursePageComponent} from "./course-page/course-page.component";
 import {CreateStreamFormComponent} from "./create-stream-form/create-stream-form.component";
 import {CreateGroupFormComponent} from "./create-group-form/create-group-form.component";
 import {TeacherLessonPageComponent} from "./teacher-lesson-page/teacher-lesson-page.component";
+import {GroupProgressPageComponent} from "./group-progress-page/group-progress-page.component";
+import {
+  StudentDetailedProgressPageComponent
+} from "./student-detailed-progress-page/student-detailed-progress-page.component";
 
 export const teacherRoutes: Routes = [
   {
@@ -28,6 +32,8 @@ export const teacherRoutes: Routes = [
       {path: 'streams/new', component: CreateStreamFormComponent},
       {path: 'groups/new', component: CreateGroupFormComponent},
       {path: 'lessons/:id', component: TeacherLessonPageComponent},
+      {path: 'lessons/:lessonId/:groupId', component: GroupProgressPageComponent},
+      {path: 'lessons/:lessonId/:groupId/:studentId', component: StudentDetailedProgressPageComponent},
     ]
   },
 ];

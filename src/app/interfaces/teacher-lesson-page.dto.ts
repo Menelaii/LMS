@@ -1,9 +1,7 @@
 import {LessonDTO} from "./lesson.dto";
-import {StudentDTO} from "./student.dto";
-import {ProgressDTO} from "./progress.dto";
+import {GroupShortDTO} from "./group-short.dto";
 
 export interface TeacherLessonPageDTO {
-  progressMap: Map<number, ProgressDTO>;
-  students: StudentDTO[];
+  groups: GroupShortDTO[];
   lesson: LessonDTO;
 }
