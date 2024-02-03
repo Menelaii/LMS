@@ -19,14 +19,8 @@
             </nz-form-control>
           </nz-form-item>
           <div nz-row class="login-form-margin">
-            <div nz-col [nzSpan]="12">
-              <label nz-checkbox>
-                <span>Запомнить меня</span>
-              </label>
-            </div>
-            <div nz-col [nzSpan]="12">
-              <a class="login-form-forgot">Восстановить пароль</a>
-            </div>
+            Или&nbsp;
+            <a routerLink="/registration">зарегистрируйтесь сейчас!</a>
           </div>
 
           <nz-form-control *ngIf="error">
@@ -39,8 +33,6 @@
                   [disabled]="form.invalid || isSubmitted">
             Войти
           </button>
-          Или
-          <a routerLink="/registration">зарегистрируйтесь сейчас!</a>
         </ng-container>
       </form>
 
