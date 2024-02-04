@@ -60,4 +60,6 @@ export class StudentDetailedProgressPageComponent implements OnInit {
       }
     }, [] as { key: string; value: any }[]);
   }
+
+  protected readonly Object = Object;
 }
