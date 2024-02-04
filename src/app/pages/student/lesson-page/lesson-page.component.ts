@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CachedSrcDirective} from "../../../directives/cachedSrc.directive";
 import {JsonPipe, NgIf} from "@angular/common";
 import 'scorm-again';
@@ -6,12 +6,13 @@ import {AccountDTO} from "../../../interfaces/account.dto";
 import {ActivatedRoute} from "@angular/router";
 import {LessonPageDTO} from "../../../interfaces/lesson-page.dto";
 import {LessonService} from "../../../services/lesson.service";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HttpHeaders} from "@angular/common/http";
 import {UrlChangerService} from "../../../services/url-changer.service";
 import {LessonProgressService} from "../../../services/lesson-progress.service";
 import {SaveProgressRequestDTO} from "../../../interfaces/save-progress-request.dto";
 import {NzDescriptionsModule} from "ng-zorro-antd/descriptions";
 import {LayoutService} from "../../../services/layout.service";
+import {TokenStorageService} from "../../../services/token-storage.service";
 
 declare var Scorm12API: any;
 
@@ -50,13 +51,15 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   student!: AccountDTO;
   sessionId!: number;
   lessonPage!: LessonPageDTO;
+  authHeader!: HttpHeaders;
 
   constructor(
     private lessonService: LessonService,
     private route: ActivatedRoute,
     private urlChanger: UrlChangerService,
     private lessonProgressService: LessonProgressService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private tokenStorage: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -64,7 +67,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.subscribeOnApiEvents();
 
     this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['lessonId'];
       if (!this.id) {
         throw new Error('id урока не найден');
       }
@@ -78,13 +81,12 @@ export class LessonPageComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.layoutService.setShowHeader(false);
+    this.authHeader = this.tokenStorage.getAuthHeader();
     this.layoutService.setDisableContainerPadding(true);
     this.layoutService.setIsSiderCollapsed(true);
   }
 
   ngOnDestroy(): void {
-    this.layoutService.setShowHeader(true);
     this.layoutService.setDisableContainerPadding(false);
     this.layoutService.setIsSiderCollapsed(false);
   }
@@ -94,24 +96,22 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   subscribeOnApiEvents() {
-    window.API.on("LMSInitialize", function() {
-      console.log('on api init');
-    });
+    // window.API.on("LMSInitialize", function() {
+    // });
 
     window.API.on("LMSCommit", () => {
-      console.log('on api commit');
       this.saveProgress();
     });
 
-    window.API.on("LMSFinish", function() {
-      console.log('on api finish');
-    });
+    // window.API.on("LMSFinish", function() {
+    // });
   }
 
   initialize(sessionId: number | undefined, progress: any) {
     if (!progress) {
       window.API.cmi.core.student_id = this.student.id;
-      window.API.cmi.core.student_name = this.student.lastname + this.student.name + this.student.patronymic;
+      window.API.cmi.core.student_name =
+        `${this.student.lastname} ${this.student.name} ${this.student.patronymic}`;
       this.sessionId = 0;
     } else {
       window.API.loadFromJSON(progress);
@@ -120,18 +120,14 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateLog() {
-    this.log = window.API.cmi.toJSON();
-  }
-
   saveProgress() {
     const requestDTO: SaveProgressRequestDTO = {
       progress: window.API.cmi.toJSON(),
       sessionId: this.sessionId
     }
 
-    this.lessonProgressService.saveProgress(this.id, requestDTO).subscribe(() =>{
-      console.log('progress saved');
+    this.lessonProgressService.saveProgress(this.id, requestDTO, this.authHeader).subscribe(() => {
+      console.log('прогресс сохранён');
     });
   }
 }

@@ -38,7 +38,7 @@ export class TeacherLessonPageComponent implements OnInit {
   ngOnInit(): void {
     //todo проверить нет ли многократных подписок
     this.activatedRoute.params.subscribe(params => {
-      const id: number = params['id'];
+      const id: number = params['lessonId'];
       this.lessonPage$ = this.lessonService.getTeacherLessonPageById(id);
     });
   }

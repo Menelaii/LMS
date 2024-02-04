@@ -1,10 +1,10 @@
+<h1>О уроке</h1>
 <ng-container  *ngIf="(lessonPage$ | async) as lessonPage; else spinner">
-
-  <nz-descriptions nzTitle="Информация о уроке" nzLayout="horizontal">
+  <nz-descriptions nzLayout="horizontal">
     <nz-descriptions-item nzTitle="Название">{{lessonPage.lesson.title}}</nz-descriptions-item>
   </nz-descriptions>
 
-  <h3>Прогресс учеников</h3>
+  <h1>Прогресс учеников</h1>
 
   <nz-table #sortTable [nzTemplateMode]="true"
     nzTableLayout="fixed"
@@ -23,7 +23,7 @@
     <tr *ngFor="let group of lessonPage.groups">
       <td>{{ group.name }}</td>
       <td>
-        <a [routerLink]="['/teacher/lessons/', lessonPage.lesson.id, group.id]">Перейти</a>
+        <a [routerLink]="[group.id]">Перейти</a>
       </td>
     </tr>
     </tbody>

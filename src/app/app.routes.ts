@@ -12,14 +12,17 @@ export const routes: Routes = [
 
   {
     path: 'student',
+    data: {breadcrumb: 'Домашняя'},
     loadChildren: () => import('./pages/student/student.routes').then(m => m.studentRoutes)
   },
   {
     path: 'teacher',
+    data: {breadcrumb: 'Домашняя'},
     loadChildren: () => import('./pages/teacher/teacher.routes').then(m => m.teacherRoutes)
   },
   {
     path: 'admin',
+    data: {breadcrumb: 'Домашняя'},
     loadChildren: () => import('./pages/admin/admin.routes').then(m => m.adminRoutes)
   },
 ];

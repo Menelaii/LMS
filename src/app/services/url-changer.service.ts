@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment.dev";
 export class UrlChangerService {
 
   constructor() {
-    console.log('url transformer for frame is active');
+    console.log('url transformer is active');
   }
 
   transformUrlForProxy(url: string): string {

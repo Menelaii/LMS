@@ -46,7 +46,7 @@ export class StudentCoursePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      const id: number = params['id'];
+      const id: number = params['courseId'];
       if (!id) {
         throw new Error('id не найден');
       }

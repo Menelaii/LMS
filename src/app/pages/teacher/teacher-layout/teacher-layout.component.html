@@ -4,7 +4,7 @@
             nzWidth="256px"
             nzBreakpoint="md"
             [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  >
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
@@ -30,8 +30,8 @@
 
       <li nz-submenu nzOpen nzTitle="Курсы" nzIcon="book">
         <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/teacher/courses/my">Мои курсы</a>
+          <li nz-menu-item nzMatchRouter nzMatchRouterExact>
+            <a routerLink="/teacher/courses">Мои курсы</a>
           </li>
 
           <li nz-menu-item nzMatchRouter>
@@ -70,8 +70,8 @@
     </ul>
 
   </nz-sider>
-  <nz-layout>
-    <nz-header>
+  <nz-layout class="inner-layout">
+    <nz-header *ngIf="showHeader">
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
@@ -81,6 +81,9 @@
         </span>
       </div>
     </nz-header>
+
+    <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>

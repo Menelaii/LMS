@@ -3,5 +3,5 @@ import {ScormData} from "./scorm/scorm-data";
 
 export interface StudentDetailedProgressDTO {
   student: StudentDTO;
-  rawProgress?: ScormData;
+  scormData: ScormData;
 }

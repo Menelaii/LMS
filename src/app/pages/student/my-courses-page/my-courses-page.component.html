@@ -2,7 +2,7 @@
 <ng-container  *ngIf="(paginatedCourses$ | async) as courses; else spinner">
 
   <ul nz-list [nzDataSource]="courses" nzBordered nzSize="large">
-    <nz-list-header>Название</nz-list-header>
+    <nz-list-header></nz-list-header>
     <li nz-list-item *ngFor="let course of courses" nzNoFlex>
       <ul nz-list-item-actions>
         <nz-list-item-action>

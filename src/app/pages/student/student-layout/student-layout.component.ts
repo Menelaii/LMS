@@ -1,18 +1,15 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {
-  NzContentComponent,
-  NzHeaderComponent,
-  NzLayoutComponent,
-  NzLayoutModule,
-  NzSiderComponent
+  NzLayoutModule
 } from "ng-zorro-antd/layout";
 import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzMenuDirective, NzMenuItemComponent, NzMenuModule, NzSubMenuComponent} from "ng-zorro-antd/menu";
+import {NzMenuModule} from "ng-zorro-antd/menu";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
 import {NgClass, NgIf} from "@angular/common";
 import {LayoutService} from "../../../services/layout.service";
 import {Subscription} from "rxjs";
+import {NzBreadCrumbComponent} from "ng-zorro-antd/breadcrumb";
 
 @Component({
   selector: 'app-student-layout',
@@ -25,6 +22,7 @@ import {Subscription} from "rxjs";
     NgIf,
     NgClass,
     NzIconDirective,
+    NzBreadCrumbComponent,
   ],
   templateUrl: './student-layout.component.html',
   styleUrl: './student-layout.component.scss'
@@ -35,7 +33,7 @@ export class StudentLayoutComponent implements OnDestroy, OnInit {
   private layoutSiderCollapseSub!: Subscription;
 
   isCollapsed = true;
-  showHeader = true;
+  showHeader = false;
   disableContainerPadding = false;
 
   constructor(

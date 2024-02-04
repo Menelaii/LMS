@@ -10,11 +10,11 @@ import {CreateLessonFormComponent} from "./create-lesson-form/create-lesson-form
 import {CoursePageComponent} from "./course-page/course-page.component";
 import {CreateStreamFormComponent} from "./create-stream-form/create-stream-form.component";
 import {CreateGroupFormComponent} from "./create-group-form/create-group-form.component";
-import {TeacherLessonPageComponent} from "./teacher-lesson-page/teacher-lesson-page.component";
 import {GroupProgressPageComponent} from "./group-progress-page/group-progress-page.component";
 import {
   StudentDetailedProgressPageComponent
 } from "./student-detailed-progress-page/student-detailed-progress-page.component";
+import {TeacherLessonPageComponent} from "./teacher-lesson-page/teacher-lesson-page.component";
 
 export const teacherRoutes: Routes = [
   {
@@ -23,17 +23,59 @@ export const teacherRoutes: Routes = [
     canActivateChild: [RoleGuard],
     data: {roles: [environment.ROLE_TEACHER]}, children: [
       {path: '', redirectTo: '/teacher/dashboard', pathMatch: 'full'},
-      {path: 'dashboard', component: TeacherHomePageComponent},
-      {path: 'enrollments/new', component: EnrollmentFormComponent},
-      {path: 'courses/new', component: CreateCourseFormComponent},
-      {path: 'courses/my', component: OwnedCoursesComponent},
-      {path: 'lessons/new', component: CreateLessonFormComponent},
-      {path: 'courses/:id', component: CoursePageComponent},
-      {path: 'streams/new', component: CreateStreamFormComponent},
-      {path: 'groups/new', component: CreateGroupFormComponent},
-      {path: 'lessons/:id', component: TeacherLessonPageComponent},
-      {path: 'lessons/:lessonId/:groupId', component: GroupProgressPageComponent},
-      {path: 'lessons/:lessonId/:groupId/:studentId', component: StudentDetailedProgressPageComponent},
+      {path: 'dashboard', component: TeacherHomePageComponent, data: {breadcrumb: 'Профиль'}},
+      {path: 'enrollments/new', component: EnrollmentFormComponent, data: {breadcrumb: 'Зачислить'}},
+      {path: 'courses/new', component: CreateCourseFormComponent, data: {breadcrumb: 'Добавить курс'}},
+      {path: 'lessons/new', component: CreateLessonFormComponent, data: {breadcrumb: 'Добавить урок'}},
+      {path: 'streams/new', component: CreateStreamFormComponent, data: {breadcrumb: 'Добавить поток'}},
+      {path: 'groups/new', component: CreateGroupFormComponent, data: {breadcrumb: 'Добавить группу'}},
+
+      {
+        path: 'courses',
+        data: {breadcrumb: 'Мои курсы'}, children: [
+          {
+            path: '',
+            component: OwnedCoursesComponent,
+          },
+
+          {
+            path: ':id',
+            data: {breadcrumb: 'Курс'}, children: [
+              {
+                path: '',
+                component: CoursePageComponent,
+              },
+
+              {
+                path: 'lessons/:lessonId',
+                data: {breadcrumb: 'Урок'}, children: [
+                  {
+                    path: '',
+                    component: TeacherLessonPageComponent,
+                    data: {breadcrumb: 'Урок'}
+                  },
+
+                  {
+                    path: ':groupId',
+                    data: {breadcrumb: 'Прогресс группы'},
+                    children: [
+                      {
+                        path: '',
+                        component: GroupProgressPageComponent,
+                      },
+                      {
+                        path: ':studentId',
+                        component: StudentDetailedProgressPageComponent,
+                        data: {breadcrumb: 'Детальный отчёт'}
+                      },
+                    ]
+                  },
+                ]
+              },
+            ]
+          },
+        ]
+      },
     ]
   },
 ];

@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.dev";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {TokenStorageService} from "./token-storage.service";
 import {SaveProgressRequestDTO} from "../interfaces/save-progress-request.dto";
 import {GroupProgressPageDTO} from "../interfaces/group-progress-page.dto";
@@ -15,9 +15,9 @@ export class LessonProgressService {
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) {
   }
 
-  saveProgress(lessonId: number, requestDTO: SaveProgressRequestDTO): Observable<HttpResponse<any>> {
+  saveProgress(lessonId: number, requestDTO: SaveProgressRequestDTO, cachedAuthHeader: HttpHeaders): Observable<HttpResponse<any>> {
     return this.http.post(`${environment.LESSON_PROGRESS_ME_URL}/${lessonId}`, requestDTO,{
-      headers: this.tokenStorage.getAuthHeader(),
+      headers: cachedAuthHeader,
       observe: 'response'
     })
   }

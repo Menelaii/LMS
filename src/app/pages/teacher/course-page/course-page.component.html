@@ -1,15 +1,17 @@
+<h1>О курсе</h1>
 <ng-container  *ngIf="(coursePageWithPaginatedLessons$ | async) as coursePage; else spinner">
-  <nz-descriptions nzTitle="Информация о курсе" nzLayout="horizontal">
+  <nz-descriptions nzLayout="horizontal">
     <nz-descriptions-item nzTitle="Название">{{coursePage.course.title}}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="Создатель">{{getFullName(coursePage.owner)}}</nz-descriptions-item>
   </nz-descriptions>
 
+  <h1>Уроки</h1>
   <ul nz-list [nzDataSource]="coursePage.course.lessons" nzBordered nzSize="large">
-    <nz-list-header>Уроки</nz-list-header>
+    <nz-list-header></nz-list-header>
     <li nz-list-item *ngFor="let lesson of coursePage.course.lessons" nzNoFlex>
       <ul nz-list-item-actions>
         <nz-list-item-action>
-          <a [routerLink]="['/teacher', 'lessons', lesson.id]">открыть</a>
+          <a [routerLink]="['lessons', lesson.id]">открыть</a>
         </nz-list-item-action>
       </ul>
       {{ lesson.title }}

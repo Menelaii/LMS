@@ -5,7 +5,7 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class LayoutService {
-  private showHeader = new BehaviorSubject<boolean>(true);
+  private showHeader = new BehaviorSubject<boolean>(false);
   private disableContainerPadding = new BehaviorSubject<boolean>(false);
   private isSiderCollapsed = new BehaviorSubject<boolean>(false);
 

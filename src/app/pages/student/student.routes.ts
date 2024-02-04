@@ -14,10 +14,33 @@ export const studentRoutes: Routes = [
     canActivateChild: [RoleGuard],
     data: {roles: [environment.ROLE_STUDENT]}, children: [
       {path: '', redirectTo: '/student/dashboard', pathMatch: 'full'},
-      {path: 'dashboard', component: StudentHomePageComponent},
-      {path: 'courses', component: MyCoursesPageComponent},
-      {path: 'courses/:id', component: StudentCoursePageComponent},
-      {path: 'lessons/:id', component: LessonPageComponent},
+      {path: 'dashboard', component: StudentHomePageComponent, data: {breadcrumb: 'Профиль'}},
+      {
+        path: 'courses',
+        data: {breadcrumb: 'Курсы'},
+        children: [
+          {
+            path: '',
+            component: MyCoursesPageComponent,
+          },
+          {
+            path: ':courseId',
+            data: {breadcrumb: 'Курс'},
+            children: [
+              {
+                path: '',
+                data: {breadcrumb: 'Курс'},
+                component: StudentCoursePageComponent
+              },
+              {
+                path: ':lessonId',
+                data: {breadcrumb: 'Урок'},
+                component: LessonPageComponent
+              },
+            ]
+          },
+        ]
+      },
     ]
   },
 ];

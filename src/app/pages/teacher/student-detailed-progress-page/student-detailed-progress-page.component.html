@@ -1,1 +1,40 @@
-<p>student-detailed-progress-page works!</p>
+<h1>О ученике</h1>
+<ng-container  *ngIf="(detailedProgressPage$ | async) as detailedProgressPage; else spinner">
+
+  <nz-descriptions nzLayout="horizontal">
+    <nz-descriptions-item nzTitle="ФИО">{{getFullName(detailedProgressPage.student)}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Почта">{{detailedProgressPage.student.email}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Группа">{{detailedProgressPage.student.group.name}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <h1>Подробный отчёт</h1>
+
+<!--  <pre>-->
+<!--    {{detailedProgressPage.scormData | json}}-->
+<!--  </pre>-->
+
+  <nz-table
+  >
+    <thead>
+    <tr>
+      <th>Элемент</th>
+      <th>Значение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pair of flattenObject(detailedProgressPage.scormData)">
+      <td>{{ pair.key}}</td>
+      <td nzBreakWord >{{ pair.value }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</ng-container>
+
+<ng-template #spinner>
+  <div class="spinner-container">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
+</ng-template>

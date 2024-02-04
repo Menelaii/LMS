@@ -4,6 +4,8 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from "ng-zorro-antd/menu";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
+import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-teacher-layout',
@@ -18,13 +20,16 @@ import {AuthService} from "../../../services/auth.service";
     NzSiderComponent,
     NzSubMenuComponent,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    NzBreadCrumbModule,
+    NgIf
   ],
   templateUrl: './teacher-layout.component.html',
   styleUrl: './teacher-layout.component.scss'
 })
 export class TeacherLayoutComponent {
   isCollapsed = true;
+  showHeader = false;
 
   constructor(private authService: AuthService) {
   }
